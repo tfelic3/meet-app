@@ -19,12 +19,14 @@ class App extends Component {
 
 	
 	  updateEvents = (location) => {
-		getEvents().then((events) => {
+		getEvents().then((response) => {
 		  const locationEvents = (location === 'all') ?
-			events :
-			events.filter((event) => event.location === location);
+			response.events :
+			response.events.filter((event) => event.location === location);
 		  this.setState({
-			events: locationEvents
+			events: locationEvents,
+			locations: response.locations
+			
 		  });
 		});
 	  }
@@ -32,12 +34,12 @@ class App extends Component {
 	  componentDidMount() {
 		
 		this.mounted = true;
-		getEvents().then((events) => {
+		getEvents().then((response) => {
 		
-			
 		
 		  if(this.mounted) {
-		  this.setState({ events, locations: extractLocations(events)});
+		  this.setState({ events: response.events, locations: response.locations,});
+	
 		  }
 		});
 	  }
@@ -53,7 +55,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<p>Hello Friends</p>
+				<p>City Search Bar</p>
 				
 				<CitySearch
 					locations={this.state.locations}

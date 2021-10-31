@@ -59,20 +59,18 @@ const checkToken = async (accessToken) => {
   };
 
 
-const extractLocations = (events) => {
-
-	let extractLocations = events.map((event) => event.location);
-	let locations = [...new Set(extractLocations)];
-
+  const extractLocations = (events) => {
+	var extractLocations = events.map((event) => event.location);
+	var locations = [...new Set(extractLocations)];
 	return locations;
-};
+  };
 
 export const getEvents = async () => {
 	NProgress.start();
 
   if (window.location.href.startsWith("http://localhost")) {
     NProgress.done();
-    return mockData;
+    return { events: mockData, locations: extractLocations(mockData) };
   }
 
 
@@ -82,23 +80,31 @@ export const getEvents = async () => {
     removeQuery();
     const url = `https://ncgwduqn1e.execute-api.us-east-1.amazonaws.com/dev/api/get-events/${token}`;
     const result = await axios.get(url);
-	console.log(result.data.event);
+	
 	let locations = []
+	
+
     if (result.data) {
 
-	locations = extractLocations(result.data.event);
+	locations = extractLocations(result.data.events);
+
+	
+	console.log(result)
 
       localStorage.setItem("lastEvents", JSON.stringify(result.data));
      localStorage.setItem("locations", JSON.stringify(locations));
     }
     NProgress.done();
-	
-    return {events: result.data.events || [], locations};
-  } else{
-	  return{
-		events: ["1","2"],
-		locations: ["2","4"],
-	  }
+	return { events: result.data.events || [], locations };
+} else { 
+    return {
+      events: [],
+      locations: [],
+    };
+  
+
+
+ 
   }
 
 }
