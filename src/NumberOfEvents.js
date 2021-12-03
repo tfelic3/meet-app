@@ -4,16 +4,18 @@ import { ErrorAlert } from './Alert';
 class NumberOfEvents extends Component {
 	state = {
 		numberOfEvents: 32,
+		ErrorAlert: '',
 	};
 
 	changeInput = (eventCount) => {
 		const value = eventCount.target.value;
-		this.setState({ numberOfEvents: value });
+		this.setState({ numberOfEvents: value, ErrorAlert: '' });
 		this.props.updateEvents(null, value);
 
 		if (value < 1 || value > 32) {
 			this.setState({
 				infoText: 'Select number of events from 1 to 32',
+				numberOfEvents: value,
 			});
 		} else {
 			this.setState({
