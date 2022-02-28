@@ -8,11 +8,11 @@ class Event extends Component {
 	changeDetails = () => {
 		this.setState({ details: true });
 	};
-
+//Hides details of dropdown menu
 	hideDetails = () => {
 		this.setState({ details: false });
 	};
-
+//Shows details from dropdown menu
 	showDetails = () => {
 		if (this.state.details === false)
 			return (

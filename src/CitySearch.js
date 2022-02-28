@@ -7,7 +7,7 @@ import { InfoAlert } from './Alert';
 class CitySearch extends Component {
 	
 	
-
+//State for queries, suggestions and info text 
 	state = {
 		query: '',
 		suggestions: [],
@@ -15,6 +15,11 @@ class CitySearch extends Component {
 		
 	};
 
+	/**
+	 * Values changes as user types in search field 
+	 * @param {value} event 
+	 * @returns {state} query
+	 */
 	handleInputChanged = (event) => {
 		const value = event.target.value;
 	
@@ -34,6 +39,12 @@ class CitySearch extends Component {
 		  });
 		}
 	  };
+
+	  /**
+	   * Shows suggestions based on item clicked
+	   * @param {string}suggestions
+	   * @returns {state} suggestions
+	   */
 
 	handleItemClicked = (suggestion) => {
 		this.setState({

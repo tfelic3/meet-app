@@ -7,6 +7,11 @@ class NumberOfEvents extends Component {
 		ErrorAlert: '',
 	};
 
+	/**
+	 * Shows the number of events based in a particular city
+	 * @param {number} eventCount
+	 * @returns {number}
+	 */
 	changeInput = (eventCount) => {
 		const value = eventCount.target.value;
 		this.setState({ numberOfEvents: value, ErrorAlert: '' });
